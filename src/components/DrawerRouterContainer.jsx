@@ -7,6 +7,8 @@ import { Drawer, DrawerContent } from '@progress/kendo-react-layout';
 
 import Header from './Header.jsx';
 import RightDrawer from './Drawer/RightDrawer.jsx';
+import LineChart from './LineChart.jsx';
+import PieChart from './PieChart.jsx';
 
 
 const items = [
@@ -92,7 +94,6 @@ class DrawerRouterContainer extends React.Component {
                     <DrawerContent style={{height: 1066}}>
                         {this.props.children}
                     </DrawerContent>
-                    <RightDrawer />
                 </Drawer>
             </React.Fragment>
         );

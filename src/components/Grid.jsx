@@ -27,7 +27,6 @@ export const Grid = (props) => {
     const excelExportRef = React.useRef(null);
     const pdfExportRef = React.useRef(null);
 
-    const [isPdfExporting, setIsPdfExporting] = React.useState(false);
     const [take, setTake] = React.useState(10);
     const [skip, setSkip] = React.useState(0);
     const [sort, setSort] = React.useState([]);
@@ -35,7 +34,6 @@ export const Grid = (props) => {
     const [filter, setFilter] = React.useState(null);
     const lastSelectedIndexRef = React.useRef(0);
     const [allColumnFilter, setAllColumnFilter] = React.useState('');
-    const localizationService = useLocalization();
 
     const dataState = {
         take,
@@ -54,29 +52,6 @@ export const Grid = (props) => {
             setFilter(event.dataState.filter);
         },
         [setTake, setSkip, setSort, setGroup]
-    );
-
-    const onExcelExport = React.useCallback(
-        () => {
-            if (excelExportRef.current) {
-                excelExportRef.current.save();
-            }
-        },
-        []
-    );
-
-    const onPdfExportDone = React.useCallback(
-        () => {
-            setIsPdfExporting(false);
-        },
-        []
-    );
-
-    const onAllColumnFilterChange = React.useCallback(
-        (event) => {
-            setAllColumnFilter(event.value);
-        },
-        [setAllColumnFilter]
     );
 
     const onSelectionChange = React.useCallback(
@@ -156,16 +131,6 @@ export const Grid = (props) => {
         [processedData]
     );
 
-    const onPdfExport = React.useCallback(
-        () => {
-            if (pdfExportRef.current) {
-                setIsPdfExporting(true);
-                pdfExportRef.current.save(processedData.data, onPdfExportDone);
-            }
-        },
-        [processedData, onPdfExportDone]
-    );
-
     const GridElement = (
         <KendoGrid
             {...dataState}
@@ -182,26 +147,6 @@ export const Grid = (props) => {
             onSelectionChange={onSelectionChange}
             onHeaderSelectionChange={onHeaderSelectionChange}
         >
-            <GridToolbar>
-                <Input
-                    value={allColumnFilter}
-                    onChange={onAllColumnFilterChange}
-                    placeholder={localizationService.toLanguageString('custom.gridSearch')}
-                />
-                <Button
-                    icon="excel"
-                    onClick={onExcelExport}
-                >
-                    {localizationService.toLanguageString('custom.exportExcel')}
-                </Button>
-                <Button
-                    icon="pdf"
-                    onClick={onPdfExport}
-                    disabled={isPdfExporting}
-                >
-                    {localizationService.toLanguageString('custom.exportPdf')}
-                </Button>
-            </GridToolbar>
             <Column
                 field={'selected'}
                 width={50}

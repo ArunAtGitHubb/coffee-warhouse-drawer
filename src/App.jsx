@@ -34,11 +34,10 @@ import { enMessages } from './messages/en-US';
 import { frMessages } from './messages/fr';
 import { esMessages } from './messages/es';
 
-import 'hammerjs';
 import '@progress/kendo-theme-default/dist/all.css';
 import './App.scss';
+import 'hammerjs';
 import Controller from './pages/Controller.jsx';
-import BottomDrawer from './components/Drawer/BottomDrawer.jsx';
 import Chats from './components/Chats.jsx';
 
 load(
@@ -99,14 +98,13 @@ const App = (props) => {
                         <HashRouter>
                             <DrawerRouterContainer state={s}>
                                 <Switch>
-                                    <Route exact={true} path="/" render={() => <h1>Home</h1>} />
-                                    <Route exact={true} path="/planning" component={Controller} />
-                                    <Route exact={true} path="/profile" component={Controller} />
+                                    <Route exact={true} path="/" component={Dashboard} />
+                                    <Route exact={true} path="/planning" component={Planning} />
+                                    <Route exact={true} path="/profile" component={Profile} />
                                     <Route exact={true} path="/info" component={Controller} />
                                     <Route exact={true} path="/chats" component={Chats} />
                                 </Switch>
                             </DrawerRouterContainer>
-                            {bottomDrawerToggle && <BottomDrawer />}
                         </HashRouter>
                     </AppContext.Provider>
                 </IntlProvider>

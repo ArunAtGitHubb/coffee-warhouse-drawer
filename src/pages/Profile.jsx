@@ -1,159 +1,86 @@
 
 import * as React from 'react';
 
-import { useLocalization } from '@progress/kendo-react-intl';
-import { useHistory } from "react-router-dom";
-import { Form, Field, FormElement } from '@progress/kendo-react-form';
-import { Button } from '@progress/kendo-react-buttons';
-
-import { Input } from './../components/form/Input';
-import { MaskedTextBox } from './../components/form/MaskedTextBox';
-import { DropDownList } from './../components/form/DropDownList';
-import { Editor } from './../components/form/Editor';
-import { Upload } from './../components/form/Upload';
-import { RadioGroup } from './../components/form/RadioGroup';
-import { Switch } from './../components/form/Switch';
-
-import { AppContext } from './../AppContext'
-
-import { countries } from './../resources/countries';
-import { teams } from './../resources/teams';
-
-import { requiredValidator, emailValidator, phoneValidator, biographyValidator } from './../validators'
-
-const countriesData = countries.map(country => country.name);
-const teamsData = teams.map(team => ({
-    value: team.teamID,
-    label: team.teamName
-}));
+import { Avatar } from '@progress/kendo-react-layout'
+import userAvatar from '../assets/user-avatar.jpg'
+import { GridColumn, Grid } from '@progress/kendo-react-grid';
+import {data} from '../resources/portfolio'
+import { Chart, ChartLegend, ChartSeries, ChartSeriesItem, ChartTooltip } from '@progress/kendo-react-charts';
 
 const Profile = () => {
-        const {languageId, onLanguageChange, onProfileChange, ...formValues} = React.useContext(AppContext);
-        const localizationService = useLocalization();
-        const history = useHistory();
-
-        const onSubmit = React.useCallback(
-            (dataItem) => {
-                onProfileChange({dataItem});
-
-                history.push('/');
-            },
-            [onProfileChange, history]
-        );
-
-        const onCancelClick = React.useCallback(
-            () => {
-                history.push('/');
-            },
-            [history]
-        );
-
-        return (
+    return (
+        <>
             <div id="Profile" className="profile-page main-content">
-                <div className="card-container">
-                    <div className="card-component">
-                        <Form
-                            onSubmit={onSubmit}
-                            initialValues={{
-                                ...formValues
-                            }}
-                            render={(formRenderProps) => (
-                                <FormElement horizontal={true} style={{ maxWidth: 700 }}>
-                                    <Field
-                                        id={'avatar'}
-                                        name={'avatar'}
-                                        label={''}
-                                        validator={requiredValidator}
-                                        component={Upload}
-                                    />
-                                    <Field
-                                        id={'firstName'}
-                                        name={'firstName'}
-                                        label={localizationService.toLanguageString('custom.firstName')}
-                                        validator={requiredValidator}
-                                        component={Input}
-                                    />
-                                    <Field
-                                        id={'middleName'}
-                                        name={'middleName'}
-                                        label={localizationService.toLanguageString('custom.middleName')}
-                                        optional={true}
-                                        component={Input}
-                                    />
-                                    <Field
-                                        id={'lastName'}
-                                        name={'lastName'}
-                                        label={localizationService.toLanguageString('custom.lastName')}
-                                        validator={requiredValidator}
-                                        component={Input}
-                                    />
-                                    <Field
-                                        id={'email'}
-                                        name={'email'}
-                                        type={'email'}
-                                        placeholder={'e.g.: peter@gmail.com'}
-                                        label={localizationService.toLanguageString('custom.email')}
-                                        validator={emailValidator}
-                                        component={Input}
-                                    />
-                                    <Field
-                                        id={'phoneNumber'}
-                                        name={'phoneNumber'}
-                                        label={localizationService.toLanguageString('custom.phoneNumber')}
-                                        mask={'(+9) 0000-000-00-00'}
-                                        validator={phoneValidator}
-                                        component={MaskedTextBox}
-                                    />
-                                    <Field
-                                        id={'country'}
-                                        name={'country'}
-                                        label={localizationService.toLanguageString('custom.country')}
-                                        data={countriesData}
-                                        component={DropDownList}
-                                    />
-                                    <Field
-                                        id={'biography'}
-                                        name={'biography'}
-                                        label={localizationService.toLanguageString('custom.biography')}
-                                        validator={biographyValidator}
-                                        component={Editor}
-                                    />
-                                    <Field
-                                        labelId={'isInPublicDirectoryLabel'}
-                                        name={'isInPublicDirectory'}
-                                        label={localizationService.toLanguageString('custom.public')}
-                                        component={Switch}
-                                    />
-                                    <Field
-                                        labelId={'teamlabel'}
-                                        name={'teamId'}
-                                        layout={'horizontal'}
-                                        label={localizationService.toLanguageString('custom.team')}
-                                        component={RadioGroup}
-                                        data={teamsData}
-                                    />
-                                    <hr />
-                                    <div className={'k-form-buttons'}>
-                                        <Button
-                                            onClick={onCancelClick}
-                                        >
-                                            {localizationService.toLanguageString('custom.cancel')}
-                                        </Button>
-                                        <Button
-                                            primary={true}
-                                            type={'submit'}
-                                            disabled={!formRenderProps.allowSubmit}
-                                        >
-                                            {localizationService.toLanguageString('custom.saveChanges')}
-                                        </Button>
-                                    </div>
-                                </FormElement>
-                            )}
-                        />
+                <div className="row">
+                    <div className="col-1"></div>
+                    <div className="col-3">
+                        <h1 style={{fontSize: "2.7rem", fontFamily: "sans-serif"}}>My Portfolio</h1>
+                        <Avatar style={{width: 100, height: 100, marginLeft: "4rem"}} shape={'circle'} type="image">
+                            <img style={{borderRadius: "100px"}} src={userAvatar} alt="user-avatar"/>
+                        </Avatar>
+                        <h2 style={{marginLeft: "2.5rem", fontWeight: "normal"}}>Steve Rogers</h2>
+                        <div style={{marginTop: "2rem"}}>
+                            <div className='mt-5'>
+                                <span className='font'>Current Value </span> <span className='ml-5' style={{fontSize: "2rem"}}>$100</span>  
+                            </div>
+                            <div className='mt-5'>
+                                <span className='font'>24H Change </span> <span className='green ml-5'>$20</span> 
+                            </div>
+                            <div className='mt-5'>
+                                <span className='font'>% Change </span> <span className='green ml-5'>+1.4</span> 
+                            </div>
+                            <div className='mt-5'>
+                                <span className='font'>Total Cost </span> <span className='ml-5'>$9,872</span> 
+                            </div>
+                            <div className='mt-5'>
+                                <span className='font'>Total Profit </span> <span className='red ml-5'>$-2,876</span> 
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-3">
+                    <Grid data={data}>
+                        <GridColumn field='symbol' title="Symbol" />
+                        <GridColumn field='name' title="Name" width={200} />
+                        <GridColumn field="proportion" title='Proportion' format={"{0:p2}"} />
+                    </Grid>
+                    </div>
+                    <div className="col-3">
+                        <Chart>
+                            <ChartLegend position='bottom' />
+                            {/* <ChartTooltip /> */}
+                            <ChartSeries>
+                                <ChartSeriesItem data={data} field='proportion' type='pie' />
+                            </ChartSeries>
+                        </Chart>
                     </div>
                 </div>
             </div>
-        );
+            <style>{`
+            .font{
+                display: inline-block;
+                width: 100px;
+                font-size: 1rem;
+                font-weight: lighter;
+            }
+            .red{
+                color: red;
+            }
+            .green{
+                color: green;
+            }
+            .ml-5{
+                margin-left: 2rem;
+            }
+            .mt-5{
+                margin-top: 2rem;
+            }
+            .k-grid td:first-child{
+                color: #2b0cdf;
+                font-size: 1.07rem;
+            }
+            `}</style>
+        </>
+    );
 }
 
 export default Profile;
