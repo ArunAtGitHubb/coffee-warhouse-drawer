@@ -8,7 +8,7 @@ import Info from './pages/Info.jsx';
 import DrawerRouterContainer from './components/DrawerRouterContainer.jsx';
 import { AppContext } from './AppContext';
 import { countries } from './resources/countries';
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import { IntlProvider, load, LocalizationProvider, loadMessages } from '@progress/kendo-react-intl';
 
 import likelySubtags from 'cldr-core/supplemental/likelySubtags.json';
@@ -88,6 +88,8 @@ const App = (props) => {
         [contextState, setContextState]
     );
 
+    let {bottomDrawerToggle} = useSelector(state => state)
+    let s = useSelector(state => state)
 
     return (
         <div className="App">
@@ -95,7 +97,7 @@ const App = (props) => {
                 <IntlProvider locale={contextState.localeId}>
                     <AppContext.Provider value={{...contextState, onLanguageChange, onProfileChange}}>
                         <HashRouter>
-                            <DrawerRouterContainer>
+                            <DrawerRouterContainer state={s}>
                                 <Switch>
                                     <Route exact={true} path="/" render={() => <h1>Home</h1>} />
                                     <Route exact={true} path="/planning" component={Controller} />
@@ -104,7 +106,7 @@ const App = (props) => {
                                     <Route exact={true} path="/chats" component={Chats} />
                                 </Switch>
                             </DrawerRouterContainer>
-                            {props.bottomDrawerToggle && <BottomDrawer />}
+                            {bottomDrawerToggle && <BottomDrawer />}
                         </HashRouter>
                     </AppContext.Provider>
                 </IntlProvider>

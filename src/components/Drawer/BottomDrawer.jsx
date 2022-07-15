@@ -1,12 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import { BottomNavigation } from '@progress/kendo-react-layout'
 import * as types from '../../redux/actions/types'
 
 
 const BottomDrawer = (props) => {
 
-    let {bottomDrawerTextOn, leftDrawerExpand, rightDrawerExpand} = props
+    let {bottomDrawerTextOn, leftDrawerExpand, rightDrawerExpand} = useSelector(state => state)
 
     const content = [
         {

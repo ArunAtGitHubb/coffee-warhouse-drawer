@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Drawer, DrawerContent } from '@progress/kendo-react-layout';
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import Chats from '../Chats';
 import * as types from '../../redux/actions/types'
 
@@ -43,9 +43,12 @@ import * as types from '../../redux/actions/types'
     };
 
     let selected = setSelectedItem(props.location.pathname);
+
+    let {rightDrawerExpand} = useSelector(state => state)
+
     return <div>
         <Drawer 
-            expanded={props.rightDrawerExpand} 
+            expanded={rightDrawerExpand} 
             position={'end'} 
             mode={'push'} 
             mini={true} 
@@ -54,7 +57,7 @@ import * as types from '../../redux/actions/types'
             }))} 
             onSelect={onSelect}>
             <DrawerContent>
-                <Chats expanded={props.rightDrawerExpand} />
+                <Chats expanded={rightDrawerExpand} />
             </DrawerContent>
         </Drawer>
         </div>;
