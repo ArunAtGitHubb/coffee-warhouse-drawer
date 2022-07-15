@@ -38,11 +38,11 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className="col-3">
-                    <Grid data={data}>
-                        <GridColumn field='symbol' title="Symbol" />
-                        <GridColumn field='name' title="Name" width={200} />
-                        <GridColumn field="proportion" title='Proportion' format={"{0:p2}"} />
-                    </Grid>
+                        <Grid data={data}>
+                            <GridColumn field='symbol' title="Symbol" />
+                            <GridColumn field='name' title="Name" width={200} />
+                            <GridColumn field="proportion" title='Proportion' format={"{0:p2}"} />
+                        </Grid>
                     </div>
                     <div className="col-3">
                         <Chart>

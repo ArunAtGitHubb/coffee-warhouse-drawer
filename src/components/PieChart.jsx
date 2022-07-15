@@ -1,10 +1,12 @@
 import React from 'react'
 import {
     Chart,
-    ChartTitle,
     ChartLegend,
     ChartSeries,
-    ChartSeriesItem
+    ChartSeriesItem,
+    ChartSeriesLabels,
+    ChartTitle,
+    ChartTooltip
 } from '@progress/kendo-react-charts'
 
 const PieChart = (props) => {
@@ -34,7 +36,22 @@ const PieChart = (props) => {
         <div className='row gx-0 justify-content-center'>
             <div className='col-lg-5 inline-block'>
                 <div className='k-card'>
-                    <Chart
+                <Chart>
+                    <ChartTitle text={"Asset Allocation"}></ChartTitle>
+                    <ChartSeries>
+                        <ChartSeriesItem type="donut" data={pieData}>
+                        <ChartSeriesLabels
+                        content={e => `${e.value}%`}
+                        background="none"
+                        color="#fff" />
+                        </ChartSeriesItem>
+                    </ChartSeries>
+                    <ChartLegend position={"bottom"} visible={true} />
+                    <ChartTooltip render={(e) => (
+                        <div>{e.point ? e.point.category : ""}</div>
+                    )} />
+                </Chart>
+                    {/* <Chart
                         style={{
                         height: 350,
                         }}>
@@ -54,7 +71,7 @@ const PieChart = (props) => {
                                 field="share"
                             />
                         </ChartSeries>
-                    </Chart>
+                    </Chart> */}
                 </div>
             </div>
         </div>
