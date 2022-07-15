@@ -7,7 +7,7 @@ import {
     ChartCategoryAxis,
     ChartCategoryAxisItem,
 } from "@progress/kendo-react-charts";
-// import "hammerjs";
+import "hammerjs";
 const categories = ["Jan", "Feb", "Mar", "Apr"];
 
 const LineChart = () => (

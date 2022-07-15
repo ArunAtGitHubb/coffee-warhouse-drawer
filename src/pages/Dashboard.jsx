@@ -44,42 +44,6 @@ const Dashboard = () => {
             filters: [{ field: "teamId", operator: "eq", value: teamId }]
         } : null;
 
-    const [range, setRange] = React.useState({
-        start: new Date('2020-01-01T21:00:00.000Z'),
-        end: new Date('2020-04-29T21:00:00.000Z')
-    });
-    const onRangeChange = React.useCallback(
-        (event) => {
-            setRange({
-                start: event.value.start,
-                end: event.value.end
-            })
-        },
-        [setRange]
-    );
-    const trendOnClick = React.useCallback(
-        () => {
-            isChartChangeRef.current = true;
-            setIsTrend(true);
-        },
-        [setIsTrend]
-    );
-    const volumeOnClick = React.useCallback(
-        () => {
-            isChartChangeRef.current = true;
-            setIsTrend(false);
-        },
-        [setIsTrend]
-    );
-    const myTeamOnClick = React.useCallback(
-        () => setIsMyTeam(true),
-        [setIsMyTeam]
-    );
-    const allTeamOnClick = React.useCallback(
-        () => setIsMyTeam(false),
-        [setIsMyTeam]
-    );
-
 const sideBarData = [{
     id: 'Fund Manager',
     title: 'Fund Managers',
@@ -101,7 +65,7 @@ const sideBarData = [{
     text: 'The name “Colombia” is derived from the last name of the Italian navigator Christopher Columbus. It was conceived by the Venezuelan revolutionary Francisco de Miranda as a reference to all of the New World, but especially to those portions under Spanish law. The name was later adopted by the Republic of Colombia of 1819, formed from the territories of the old Viceroyalty of New Granada (modern-day Colombia, Panama, Venezuela, Ecuador, and northwest Brazil).'
     }];
 
-    const [expanded, setExpanded] = React.useState("Brazil");
+    const [expanded, setExpanded] = React.useState("Fund Manager");
 
     return (
         <div id="Dashboard" className="dashboard-page main-content" style={{marginTop: "1rem"}}>
